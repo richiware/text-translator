@@ -295,9 +295,9 @@ const Translator = new Lang.Class({
         _this = this;
         let data = exec([
             'trans',
-            // '--show-original', 'n',
-            // '--show-languages', 'n',
-            // '--show-prompt-message', 'n',
+            '--show-original', 'n',
+            '--show-languages', 'n',
+            '--show-prompt-message', 'n',
             source_lang+':'+target_lang,
             text
         ], function(data) {
