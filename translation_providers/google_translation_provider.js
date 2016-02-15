@@ -7,6 +7,7 @@ const TranslationProviderBase = Extension.imports.translation_provider_base;
 const Utils = Extension.imports.utils;
 
 const GLib = imports.gi.GLib;
+const Gio = imports.gi.Gio;
 
 const NAME = 'Google.Translate';
 const LIMIT = 1400;
@@ -253,33 +254,61 @@ const Translator = new Lang.Class({
             "\x1B[4m" : '<u>',
             "\x1B[24m" : '</u>'
         }
-        for (let hex in stuff) {
-            data = replaceAll(data, hex, stuff[hex]);
+        try {
+            for (let hex in stuff) {
+                data = replaceAll(data, hex, stuff[hex]);
+            }
+            return data;
+        } catch (e) {
+            return 'Error while parsing data: '+e;
         }
-        return data;
     },
 
     do_translation: function(source_lang, target_lang, text, callback) {
 
-        function exec(cmd) {
-        	try {
-        		return GLib.spawn_command_line_sync(cmd);
-        	} catch ( e ) {
-        		return e;
-        	}
+        function exec(cmd, exec_cb) {
+
+            try {
+		        var [res, pid, in_fd, out_fd, err_fd] = GLib.spawn_async_with_pipes(null, cmd, null, GLib.SpawnFlags.SEARCH_PATH, null);
+                var out_reader = new Gio.DataInputStream({
+                    base_stream: new Gio.UnixInputStream({fd: out_fd})
+                });
+            } catch(e) {
+                exec_cb('Error executing translate-shell: '+e);
+                return;
+            }
+
+
+            output = '';
+            function _SocketRead(source_object, res) {
+                const [chunk, length] = out_reader.read_upto_finish(res);
+                if (chunk !== null) {
+                    output+= chunk+'\n';
+                    out_reader.read_line_async(null,null, _SocketRead);
+                } else {
+                    exec_cb(output);
+                }
+            }
+            out_reader.read_line_async(null,null, _SocketRead);
         }
 
-        exec('sh -c "if [ ! -f .translator ]; then curl -Lso .translator git.io/trans && chmod a+x .translator; fi"');
-        let data = exec('./.translator --show-original n --show-languages n --show-prompt-message n '+source_lang+':'+target_lang+' "'+text+'"');
-        try {
-            if (!data || !data[0]) {
+        _this = this;
+        let data = exec([
+            'trans',
+            // '--show-original', 'n',
+            // '--show-languages', 'n',
+            // '--show-prompt-message', 'n',
+            source_lang+':'+target_lang,
+            text
+        ], function(data) {
+            // callback('data:'+data);
+            if (!data) {
                 data = 'Error while translating, check your internet connection'
             } else {
-                data = data[1].toString();
-                data = this.parse_response(data);
+                data = _this.parse_response(data);
             }
-        } catch (e) {data = e.message}
-        return data;
+            callback(data);
+        });
     },
 
     translate: function(source_lang, target_lang, text, callback) {
@@ -293,7 +322,7 @@ const Translator = new Lang.Class({
         if(!splitted || splitted.length === 1) {
             if(splitted) text = splitted[0];
 
-            callback(this.do_translation(source_lang, target_lang, text, callback));
+            this.do_translation(source_lang, target_lang, text, callback);
         }
         else {
             this._results = [];
@@ -302,9 +331,10 @@ const Translator = new Lang.Class({
                 length: splitted.length,
                 functionToLoop: Lang.bind(this, function(loop, i){
                     let text = splitted[i];
-                    let data = _this.do_translation(source_lang, target_lang, text, callback);
-                    this._results.push(data);
-                    loop();
+                    let data = _this.do_translation(source_lang, target_lang, text, function() {
+                        this._results.push(data);
+                        loop();
+                    });
                 }),
                 callback: Lang.bind(this, function() {
                     callback(this._results.join(' '));
