@@ -298,6 +298,7 @@ const Translator = new Lang.Class({
             '--show-original', 'n',
             '--show-languages', 'n',
             '--show-prompt-message', 'n',
+            '--no-bidi',
             source_lang+':'+target_lang,
             text
         ], function(data) {
