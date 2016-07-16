@@ -279,7 +279,7 @@ const Translator = new Lang.Class({
             }
 
 
-            output = '';
+            let output = '';
             function _SocketRead(source_object, res) {
                 const [chunk, length] = out_reader.read_upto_finish(res);
                 if (chunk !== null) {
@@ -292,7 +292,7 @@ const Translator = new Lang.Class({
             out_reader.read_line_async(null,null, _SocketRead);
         }
 
-        _this = this;
+        let _this = this;
         let data = exec([
             'trans',
             '--show-original', 'n',
