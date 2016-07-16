@@ -373,8 +373,10 @@ const TranslatorDialog = new Lang.Class({
         this._listen_target_button.hide();
         this._listen_target_button.actor.connect('clicked',
             Lang.bind(this, function() {
+                let lines_count = this._source.text.split('\n').length;
+                let translation = this._target.text.split('\n').slice(0, lines_count).join('\n');
                 this.google_tts.speak(
-                    this._target.text,
+                    translation,
                     this._text_translator.current_target_lang
                 )
             }))
