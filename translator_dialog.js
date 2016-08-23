@@ -373,8 +373,10 @@ const TranslatorDialog = new Lang.Class({
         this._listen_target_button.hide();
         this._listen_target_button.actor.connect('clicked',
             Lang.bind(this, function() {
+                let lines_count = this._source.text.split('\n').length;
+                let translation = this._target.text.split('\n').slice(0, lines_count).join('\n');
                 this.google_tts.speak(
-                    this._target.text,
+                    translation,
                     this._text_translator.current_target_lang
                 )
             }))
@@ -385,14 +387,14 @@ const TranslatorDialog = new Lang.Class({
         this._table = new St.Widget({
             layout_manager: this._grid_layout
         });
-        this._grid_layout.attach(this._topbar.actor, 0, 0, 2, 1);
-        this._grid_layout.attach(this._dialog_menu.actor, 1, 0, 1, 1);
-        this._grid_layout.attach(this._source.actor, 0, 2, 1, 1);
-        this._grid_layout.attach(this._target.actor, 1, 2, 1, 1);
-        // this._grid_layout.attach(this._listen_source_button.actor, 0, 3, 1, 1);
-        this._grid_layout.attach(this._chars_counter.actor, 0, 3, 1, 1);
-        // this._grid_layout.attach(this._listen_target_button.actor, 2, 3, 1, 1);
-        this._grid_layout.attach(this._statusbar.actor, 1, 3, 1, 1);
+        this._grid_layout.attach(this._topbar.actor, 0, 0, 4, 1);
+        this._grid_layout.attach(this._dialog_menu.actor, 2, 0, 2, 1);
+        this._grid_layout.attach(this._source.actor, 0, 2, 2, 1);
+        this._grid_layout.attach(this._target.actor, 2, 2, 2, 1);
+        this._grid_layout.attach(this._listen_source_button.actor, 1, 3, 1, 1);
+        this._grid_layout.attach(this._chars_counter.actor, 0, 3, 1, 2);
+        this._grid_layout.attach(this._listen_target_button.actor, 3, 3, 1, 1);
+        this._grid_layout.attach(this._statusbar.actor, 2, 3, 2, 1);
 
         this.contentLayout.add_child(this._table);
 
