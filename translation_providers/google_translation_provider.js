@@ -291,18 +291,40 @@ const Translator = new Lang.Class({
             }
             out_reader.read_line_async(null,null, _SocketRead);
         }
+        function execSync(cmd) {
+            try {
+                return GLib.spawn_command_line_sync(cmd)[1].toString().trim();
+            } catch ( e ) {
+                return false;
+            }
+        }
 
-        let _this = this;
-        let data = exec([
-            'trans',
+        var proxy = false;
+        if (execSync('gsettings get org.gnome.system.proxy mode') == "'manual'") {
+            proxy = execSync('gsettings get org.gnome.system.proxy.http host').slice(1, -1)
+            proxy+= ':'
+            proxy+= execSync('gsettings get org.gnome.system.proxy.http port')
+        }
+
+        let command = ['trans'];
+        let options = [
             '--show-original', 'n',
             '--show-languages', 'n',
             '--show-prompt-message', 'n',
             '--no-bidi',
+        ];
+        let subjects = [
             source_lang+':'+target_lang,
             text
-        ], function(data) {
-            // callback('data:'+data);
+        ];
+
+        if (proxy) {
+            options.push('-x')
+            options.push(proxy)
+        }
+
+        let _this = this;
+        let data = exec(command.concat(options).concat(subjects), function(data) {
             if (!data) {
                 data = 'Error while translating, check your internet connection'
             } else {
@@ -311,6 +333,7 @@ const Translator = new Lang.Class({
             callback(data);
         });
     },
+
 
     translate: function(source_lang, target_lang, text, callback) {
         if(Utils.is_blank(text)) {
