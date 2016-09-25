@@ -1,75 +1,80 @@
 .translator-box {
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: #222224;
+    padding: 20px;
+    color: #fff;
+    font-family: 'ubuntu', 'sans-serif';
+    border-radius: 3px;
+    border: 1px solid #111;
 }
+
+.translator-source-text-box, .translator-target-text-box {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    overflow: hidden;
+    margin: 0;
+    padding: 3px;
+    /*border-radius: 3px;*/
+}
+.translator-source-text-box { margin-right: 10px }
+.translator-target-text-box { margin-left: 10px }
 
 .translator-entry {
-    caret-color: rgb(255, 0, 0);
+    caret-color: #0af;
     caret-size: 2px;
     selected-color: black;
-    padding: 3px;
-    background-color: rgba(0, 0, 0, 0);
-    border: 0px;
-}
-
-.translator-source-text-box {
-    background-color: rgba(0, 0, 0, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-.translator-target-text-box {
-    background-color: rgba(255, 255, 255, 0.3);
+    background: transparent;
+    color: #eee;
 }
 
 .translator-statusbar-box {
-    padding: 3px;
     font-size: 18px;
-    color: rgba(150, 150, 150, 1);
-    /*border: 1px solid rgba(64, 64, 64, 0.5);*/
+    color: #ff0;
 }
 
 .translator-buttons-bar-box {
-    padding: 3px;
 }
 
 .translator-buttons-bar-icon {
     icon-size: 14px;
+    margin: 4px;
+}
+.translator-buttons-bar-icon:hover {
+    color: #0af;
+}
+.translator-buttons-bar-icon:active {
+    color: #f00;
 }
 
 .translator-top-bar-box {
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-bottom: 10px;
 }
 
 .tranlator-top-bar-button {
-    font-size: 25px;
+    font-size: 23px;
     font-weight: bold;
 }
 
 .tranlator-top-bar-button-reactive {
-    font-size: 25px;
+    font-size: 23px;
     font-weight: bold;
 }
 
 .tranlator-top-bar-button-reactive:hover {
-    background-color: rgba(64, 64, 64, 0.5);
+    color: #0af;
 }
 
 .tranlator-top-bar-button-reactive:active {
-    background-color: rgba(64, 64, 64, 0.9);
+    color: #0af;
 }
 
 .tranlator-top-bar-go-button {
-    padding-left: 5px;
-    padding-right: 5px;
     font-size: 20px;
     font-weight: bold;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    background-color: rgba(64, 64, 200, 1);
+    padding: 0 10px;
+    border: 1px solid #aaa;
 }
 
 .tranlator-top-bar-go-button:hover {
-    background-color: rgba(64, 64, 255, 1);
+    background-color: #0af;
 }
 
 .tranlator-top-bar-go-button:active {
@@ -77,52 +82,53 @@
 }
 
 .translator-dialog-menu-button {
-    padding-right: 4px;
     padding-top: 2px;
-    color: rgba(64, 64, 64, 1);
+    color: #555;
 }
 
 .translator-dialog-menu-button:hover {
-    color: rgba(255, 64, 64, 1);
+    color: #f55;
 }
 
 .translator-dialog-menu-button:active {
-    color: rgba(255, 0, 0, 1);
+    color: #f00;
 }
 
 .translator-dialog-menu-toggle-button {
-    padding-right: 4px;
     padding-top: 2px;
-    color: rgba(64, 64, 64, 1);
+    color: #555;
 }
 
 .translator-dialog-menu-toggle-button:hover {
-    color: rgba(64, 255, 64, 1);
+    color: #5f5;
 }
 
 .translator-dialog-menu-toggle-button:active {
-    color: rgba(0, 255, 0, 1);
+    color: #0f0;
 }
 
 .translator-language-chooser {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 10px;
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 4px;
+    border: 1px solid #444;
 }
 
 .translator-language-chooser-box {
-    border: 1px solid rgba(64, 64, 64, 0.5);
+    border: 1px solid #222;
+    background-color: #181818;
+    margin: 10px 0;
 }
 
 .translator-language-chooser-title {
-    color: black;
-    font-size: 20px;
+    color: #eee;
+    font-size: 17px;
     font-weight: bold;
-    padding: 5px;
 }
 
 .translator-language-chooser-entry {
     size: 10px;
-    color: black;
+    color: #fff;
     padding: 3px;
     width: 150px;
     background-color: rgba(64, 64, 64, 0.5);
@@ -133,8 +139,8 @@
 
 .translator-language-chooser-button {
     padding: 3px;
-    font-size: 18px;
-    color: black;
+    font-size: 16px;
+    color: #fff;
 }
 
 .translator-language-chooser-button:hover {
@@ -143,7 +149,6 @@
 
 .translator-language-chooser-button:active {
     font-weight: bold;
-    font-size: 16px;
     background-color: rgba(64, 64, 64, 0.3);
 }
 
@@ -157,13 +162,15 @@
 }
 
 .translator-help-box {
-    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid #222;
+    background-color: #181818;
+    margin: 10px 0;
 }
 
 .translator-help-text {
     font-size: 15px;
     padding: 15px;
-    color: black;
+    color: #eee;
 }
 
 .translator-translators-popup-escape-label {
@@ -189,45 +196,30 @@
 }
 
 .translator-lang-button-box {
-    padding-right: 5px;
+    padding: 0 5px;
 }
 
 .translator-lang-button {
-    padding-left: 2px;
-    padding-right: 2px;
-    font-size: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    background-color: rgba(255, 255, 255, 0.3);
+    font-size: 14px;
+    color: #fff;
 }
 
 .translator-lang-button:hover {
-    padding-left: 2px;
-    padding-right: 2px;
-    font-size: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    background-color: rgba(64, 64, 255, 1);
 }
 
 .translator-lang-button:active {
-    padding-left: 2px;
-    padding-right: 2px;
-    font-size: 12px;
-    font-weight: bold;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    background-color: rgba(64, 64, 200, 1);
+    color: #0af;
 }
 
 .listen-button {
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 2px;
-    color: white;
+    margin-top: 10px;
+    color: #555;
 }
 
 .listen-button:hover {
-    color: #3465a4;
+    color: #0af;
+    text-shadow: 0 0 10px #fff;
 }
 
 .listen-button:active {
-    color: #0D4CA3
 }

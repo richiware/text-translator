@@ -60,7 +60,7 @@ const EntryBase = new Lang.Class({
         this._clutter_text.set_line_wrap(true);
         this._clutter_text.set_line_wrap_mode(Pango.WrapMode.WORD_CHAR);
         this._clutter_text.set_max_length(0);
-        this._clutter_text.connect('key-press-event', Lang.bind(this, 
+        this._clutter_text.connect('key-press-event', Lang.bind(this,
             this._on_key_press_event
         ));
         this.set_font_size(Utils.SETTINGS.get_int(PrefsKeys.FONT_SIZE_KEY));
@@ -487,12 +487,18 @@ const TranslatorDialog = new Lang.Class({
 
         let box_width = Math.round(primary.width / 100 * width_percents);
         let box_height = Math.round(primary.height / 100 * height_percents);
-        this._dialogLayout.set_width(box_width);
-        this._dialogLayout.set_height(box_height);
+        this._dialogLayout.set_width(
+            box_width
+            + this._dialogLayout.get_theme_node().get_padding(St.Side.LEFT) * 2
+        );
+        this._dialogLayout.set_height(
+            box_height
+            + this._dialogLayout.get_theme_node().get_padding(St.Side.TOP) * 2
+        );
 
         let text_box_width = Math.round(
             box_width / 2
-            - this._source.entry.get_theme_node().get_padding(St.Side.LEFT) * 4
+            - 10 // The margin of the translator box
         );
         let text_box_height =
             box_height
@@ -500,7 +506,7 @@ const TranslatorDialog = new Lang.Class({
             - Math.max(
                 this._get_statusbar_height(),
                 this._chars_counter.actor.height
-            );
+            ) ;
 
         if(this._most_used_bar) {
             text_box_height -= Math.max(

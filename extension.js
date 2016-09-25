@@ -458,7 +458,7 @@ const TranslatorExtension = new Lang.Class({
     },
 
     _set_current_translator: function(name) {
-        this._translators_button.label = '<u>%s</u>'.format(name);
+        this._translators_button.label = '<i>%s</i>'.format(name);
 
         this._translators_manager.current = name;
         this._dialog.source.max_length =
@@ -567,13 +567,13 @@ const TranslatorExtension = new Lang.Class({
 
     _current_langs_changed: function() {
         this._source_lang_button.label =
-            '<u>From: %s</u>'.format(
+            'from <i>%s</i>'.format(
                 this._translators_manager.current.get_language_name(
                     this._current_source_lang
                 )
             );
         this._target_lang_button.label =
-            '<u>To: %s</u>'.format(
+            'to <i>%s</i>'.format(
                 this._translators_manager.current.get_language_name(
                     this._current_target_lang
                 )
@@ -645,7 +645,7 @@ const TranslatorExtension = new Lang.Class({
         };
         let button = new ButtonsBar.ButtonsBarButton(
             false,
-            ' <u>\u21C4</u> ',
+            ' \u21C4 ',
             'Swap languages',
             button_params,
             Lang.bind(this, this._swap_languages)
@@ -802,7 +802,7 @@ const TranslatorExtension = new Lang.Class({
 
     _add_topbar_buttons: function() {
         let translate_label = new ButtonsBar.ButtonsBarLabel(
-            'Translate ',
+            ' ',
             'tranlator-top-bar-button'
         );
         this._dialog.topbar.add_button(translate_label);
@@ -817,7 +817,7 @@ const TranslatorExtension = new Lang.Class({
         this._dialog.topbar.add_button(this._target_lang_button);
 
         let by_label = new ButtonsBar.ButtonsBarLabel(
-            ' by ',
+            ' with ',
             'tranlator-top-bar-button'
         );
         this._dialog.topbar.add_button(by_label);
