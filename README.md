@@ -13,7 +13,6 @@ Translation of the text by different translators (currently [Google.Translate](h
 ###Screenshots
 ######Dialog
 ![Translator](/screenshots/1.jpg)
-![Translator 2](/screenshots/2.jpg)
 ![Language chooser](/screenshots/3.jpg)
 ######Settings
 ![Main settings](/screenshots/4.png)
