@@ -12,8 +12,8 @@ Translation of the text by different translators (currently [Google.Translate](h
 &lt;Tab&gt; - toggle transliteration of result text.
 ###Screenshots
 ######Dialog
-![Translator](/screenshots/1.jpg)
-![Language chooser](/screenshots/3.jpg)
+![Translator](/screenshots/1.png)
+![Language chooser](/screenshots/3.png)
 ######Settings
 ![Main settings](/screenshots/4.png)
 ![Translators settings](/screenshots/5.png)
