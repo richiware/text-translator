@@ -1,6 +1,14 @@
 ##Text Translator
 Translation of the text by different translators (currently [Google.Translate](https://translate.google.com), [Yandex.Translate](https://translate.yandex.com/)).
 
+###Installing translate-shell
+
+This extension needs the package translate-shell. For install instructions see [translate-shell#installation](https://github.com/soimort/translate-shell#installation).
+
+###Installation
+
+Go on the [Text Translator](https://extensions.gnome.org/extension/593/text-translator/) extension page, click on the switch ("OFF" => "ON"), click on the install button. That's it !
+
 ###Shortcuts
 &lt;Super&gt;T - open translator dialog.  
 &lt;Super&gt;&lt;Shift&gt;T - open translator dialog and translate text from clipboard.  
