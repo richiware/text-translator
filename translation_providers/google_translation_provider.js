@@ -1,4 +1,5 @@
 const St = imports.gi.St;
+const Clutter = imports.gi.Clutter;
 const Lang = imports.lang;
 
 const Extension = imports.misc.extensionUtils.get_text_translator_extension();
@@ -19,9 +20,12 @@ const DictionaryEntry = new Lang.Class({
     _init: function(word, reverse_translations) {
         this.word = word;
         this.reverse_translations = reverse_translations || [];
-
-        this.actor = new St.Table({
-            homogeneous: false
+ 
+        this._grid_layout = new Clutter.GridLayout({
+            orientation: Clutter.Orientation.VERTICAL
+        });
+        this.actor = new St.Widget({
+            layout_manager: this._grid_layout
         });
 
         this.word_label = new St.Label();
@@ -36,27 +40,9 @@ const DictionaryEntry = new Lang.Class({
             );
         this.reverse_translations_label = new St.Label();
         this.reverse_translations_label.clutter_text.set_markup(reverse_markup);
-
-        this.actor.add(this.word_label, {
-            row: 0,
-            col: 0,
-            x_align: St.Align.START,
-            y_align: St.Align.START,
-            x_fill: false,
-            x_expand: false,
-            y_fill: false,
-            y_expand: false
-        });
-        this.actor.add(this.reverse_translations_label, {
-            row: 0,
-            col: 1,
-            x_align: St.Align.START,
-            y_align: St.Align.START,
-            x_fill: false,
-            x_expand: false,
-            y_fill: false,
-            y_expand: false
-        });
+ 
+        this._grid_layout.attach(this.word_label, 0, 0, 1, 1);
+        this._grid_layout.attach(this.reverse_translations_label, 1, 0, 1, 1);
     },
 });
 
@@ -64,8 +50,8 @@ const DictionaryPOS = new Lang.Class({
     Name: "DictionaryPOS",
 
     _init: function(pos, word) {
-        this.actor = new St.Table({
-            homogeneous: false
+        this.actor = new St.BoxLayout({
+            vertical: true
         });
 
         let markup =
@@ -74,21 +60,12 @@ const DictionaryPOS = new Lang.Class({
             "color='#C4C4C4'>%s</span>".format(pos);
         this._pos_label = new St.Label();
         this._pos_label.clutter_text.set_markup(markup);
-
-        this.actor.add(this._pos_label, {
-            row: 0,
-            col: 0,
-            y_expand: false,
-            x_expand: false,
-            x_align: St.Align.START,
-            y_align: St.Align.MIDDLE
-        });
+ 
+        this.actor.add(this._pos_label);
     },
 
     add_entry: function(dictionary_entry) {
         this.actor.add(dictionary_entry.actor, {
-            row: this.actor.row_count,
-            col: 0,
             x_fill: false,
             x_expand: false,
             y_fill: false,
